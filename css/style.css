@@ -2,6 +2,8 @@ body{
   text-align: center;
 }
 
-.jumbotron{
-  margin: 0 300px 0 300px;
+@media(min-height:768px){
+  .jumbotron{
+    margin: 0 300px 0 300px;
+  }
 }
