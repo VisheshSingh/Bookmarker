@@ -8,6 +8,18 @@ function saveBookmark(e){
     //console.log(siteName);
     var siteUrl = document.getElementById('siteurl').value;
     //console.log(siteUrl);
+    if(!siteName || ! siteUrl){
+      alert('Please fill in the box!');
+      return false;
+    }
+
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+
+    if(!siteUrl.match(regex)){
+      alert('Please use a valid url');
+      return false;
+    }
     var bookmark={
       name: siteName,
       url: siteUrl
@@ -37,8 +49,10 @@ function saveBookmark(e){
       bookmarks.push(bookmark);
       //Reset back to local storage
       localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-      fetchBookmarks();
+
     }
+    document.getElementById('myform').reset();
+    fetchBookmarks();
     //Prevent form from submitting
     e.preventDefault();
 }
