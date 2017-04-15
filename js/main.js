@@ -37,10 +37,24 @@ function saveBookmark(e){
       bookmarks.push(bookmark);
       //Reset back to local storage
       localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-
+      fetchBookmarks();
     }
     //Prevent form from submitting
     e.preventDefault();
+}
+  //Delete bookmarks
+function deleteBookmark(url){
+    //Get bookmarks from local
+    console.log(url);
+    var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    for(var i = 0; i< bookmarks.length;i++){
+      if(bookmarks[i].url == url)
+      {
+        bookmarks.splice(i,1);
+      }
+    }
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    fetchBookmarks();
 }
 
   //fetch bookmarks
@@ -56,6 +70,8 @@ function fetchBookmarks(){
 
     bookmarkResults.innerHTML += '<div class="well">'+
                                 '<h3>'+name+
+                                ' <a class="btn btn-default" target="_blank" href="'+url+'">Visit</a> ' +
+                                ' <a onclick="deleteBookmark(\''+url+'\')" class="btn btn-danger" href="#">Delete</a> '+
                                 '</h3>'+
                                 '</div>';
   }
